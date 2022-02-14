@@ -45,7 +45,6 @@ class DownloaderImpl : Downloader {
 
             total += len
 
-            Log.d("HTTP","total = $total ,len = $len , all = $length ")
             fileOutputStream.write(byteArray, 0, len)
 
             //更新进度
