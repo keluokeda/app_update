@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.MainThread
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import java.io.File
 
@@ -21,6 +22,17 @@ class ApkInstallerImpl : ApkInstaller {
 
     override fun install(context: Context, apkFile: File) {
 
+        startInstallIntent(context, apkFile)
+
+        AlertDialog.Builder(context)
+            .setTitle("提示")
+            .setMessage("若安装失败，请继续安装")
+            .setPositiveButton("安装") { _, _ ->
+                startInstallIntent(context, apkFile)
+            }.show()
+    }
+
+    private fun startInstallIntent(context: Context, apkFile: File) {
         val intent = Intent(Intent.ACTION_VIEW)
 
         val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

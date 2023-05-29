@@ -1,6 +1,5 @@
 package com.ke.app_update.lib
 
-import android.util.Log
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -14,7 +13,7 @@ interface Downloader {
     /**
      * 下载文件
      * @param fileName 保存的文件名
-     * @param 文件的远程地址
+     * @param url 文件的远程地址
      * @param update 更新进度
      */
     suspend fun download(
@@ -38,9 +37,9 @@ class DownloaderImpl : Downloader {
         val bufferedInputStream = BufferedInputStream(inputStream)
         val length = httpURLConnection.contentLength
 
-        var len:Int = 0
-        var total:Int = 0
-        val byteArray = ByteArray(1024*8)
+        var len: Int = 0
+        var total: Int = 0
+        val byteArray = ByteArray(1024 * 8)
         while ((bufferedInputStream.read(byteArray).also { len = it }) != -1) {
 
             total += len
